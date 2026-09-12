@@ -1,7 +1,7 @@
 # dsa_practice_2
 This repository contains my solutions and notes as I strengthen my understanding of computer science fundamentals through hands-on practice with data structures and algorithms.
 
-The DSA problems that I am going to be solving will be proble from [Neetcode 150](https://neetcode.io/practice/practice/neetcode150). I iwll be solving problems as they are organised under the following patterns:
+The DSA problems that I am going to be solving will be problems from [Neetcode 150](https://neetcode.io/practice/practice/neetcode150). I will be solving problems as they are organised under the following patterns:
 
 - Arrays and Hashing
 - Two Pointers
