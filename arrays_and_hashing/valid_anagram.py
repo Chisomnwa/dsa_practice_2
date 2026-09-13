@@ -178,8 +178,12 @@ class Solution:
 
         return True
         
-        Time Complexity: O(n) becuase we loop through each character in both strings exactly once
-        Space complexity: O(1) becuase the the number of characters can nevre pass 26 which is the number of English letters.
+        Time Complexity: O(n) because we loop through each character in both strings exactly once
+        Space complexity: O(1) because the the number of characters can never pass 26 which is the number of English letters.
+
+        But if the input contain unicode cahracters, using a hash map stiil works, because Python dictionary still support 
+        unicode characters as keys, so the same frequencey counting algorithm works without modification. I would avoid a
+        fixed-sized array of 26 elements because that assumes only lowercase English letters.
         """
         # # Brute Force Approach (Using Sorted)
         # if len(s) != len(t):
