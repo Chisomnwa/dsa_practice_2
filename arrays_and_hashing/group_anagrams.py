@@ -32,7 +32,7 @@ class Solution:
 
         3. When we have duplicate anagrams -> duplicate anagrams should stay in the same anagram group
             Input: ["eat", "tea", "ate"]
-            Output: [["eat"], ["tea"], ["ate"]]
+            Output: [["eat", "tea", "ate"]]
 
         4. When all strings are already anagrams -> they all belong to the same group
             Input: ["eat", "tea", "ate"]
