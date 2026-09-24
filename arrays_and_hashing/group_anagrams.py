@@ -36,7 +36,7 @@ class Solution:
 
         4. When all strings are already anagrams -> they all belong to the same group
             Input: ["eat", "tea", "ate"]
-            Output: [["eat"], ["tea"], ["ate"]]
+            Output: [["eat", "tea", "ate"]]
 
         5. When no strings are anagrasm -> each string forms its own group
             Input: ["cat", "dog", "pen"]
@@ -77,7 +77,7 @@ class Solution:
             - Puth them in the same group
             - Mark the second word as already grouped so you don't process it again.
 
-        - To check wether two words are anagrams
+        - To check whether two words are anagrams
             - Sort both words
             - Compare sorted strings
 
@@ -87,7 +87,7 @@ class Solution:
         3. Iterate through index i in strs
         4. If index i in already in visited, skip it
         5. Othersise, create a new group containing strs[i] and mark index i as visited
-        6. Iterate through remaining indexes j ater i
+        6. Iterate through remaining indexes j after i
         7. If index j is already in visited, skip it
         8. Sort the characters of strs[i] and strs[j]
         9. If the sorted strings are equal they are anagrams
@@ -130,7 +130,7 @@ class Solution:
         Space complexity: O(n) Why?
             - visited can srtore up to n indices
             - result stores the grouped strings (the output itself is typically not counted as
-            extra space ininterviewed, but the auxilliary set is O(n)
+            extra space in interviews, but the auxilliary set is O(n))
 
         - - -
 
@@ -149,19 +149,19 @@ class Solution:
         1. Create an empty dictionary called groups
         2. Iterate through each word in the string
         3. Create a shared key using the sorted version of the word
-        4. If key is not the groups
-            Add it as an element of the group dictionary using group[key] = []
-        5. Append the word to that that list for that group
+        4. If key is not in the groups
+            - Add it as an element of the group dictionary using groups[key] = []
+        5. Append the word to that list for that group
         6. At the end of the iteration, return the values of the group, and converting them to a list
 
         Pseudocode:
         Create an empty groups dictionary
 
         For each word in strs:
-            sort the word
+            key = sort the word
 
-            If key not in dictinary:
-                Create an empty list
+            If key not in dictionary:
+                create it as an element of the dictionary with empty list as its value
 
                 Append word to that list
 
@@ -170,25 +170,27 @@ class Solution:
         Space and Time complexity:
         Let:
         - n = number of words in strs
-        - k = maximum length off eecah word
+        - k = maximum length of each word
         
         Time complexity: O(n * k log k). For each word:
-        1. sorted(wordb takes O(k log k) time because we sort its characters.
-        2. "".join(...) O(k) time to combne the characters.
+        1. sorted(word) takes O(k log k) time because we sort its characters.
+        2. "".join(...) takes O(k) time to combine the characters.
         3. Dictionary lookup and appending take O(1) average time
 
-        Therefore: O( n * (k log k + k)) = O(nk log k)
+        Therefore: O(n * (k log k + k)) = O(nk log k)
 
         Space complexity: O(n * k)
         We store:
         - The sorted strings used as dictionary keys
         - The original words inside the grouped lists
-        - The temporary sorted caharacter for each word
+        - The temporary sorted character for each word
 
         If there are n words, each of length at most k, the stored 
         input characters and keys can require O(nk) space.
 
-        In summary: The time complexity is O(nk log k) because we sort each of the n words, and each word has at most k characters. The space complexity is O(nk) because we store the original words and their sorted keys in the hash map.
+        In summary: The time complexity is O(nk log k) because we sort each of the n words,
+        and each word has at most k characters. The space complexity is O(nk) because we
+        store the original words and their sorted keys in the hash map.
 
         """
         # # Brute Force Approach (Using Nested For loops for comparison)
