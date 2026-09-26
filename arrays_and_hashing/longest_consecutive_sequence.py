@@ -233,7 +233,7 @@ class Solution:
 
         Time complexity: O(n) because 
             - We only build a sequence when we find its starting number
-            - Across the whole algporithm, the sequence building work is bounded by the number of elements
+            - Across the whole algporithm, the sequence building work is bounded by the number of elements in the set
         Space complexity: O(n) because we created a set which we used to store the numbers
 
         """
@@ -255,19 +255,19 @@ class Solution:
         # return longest
 
         # Optmized approach (Hash Set)
-        nums_set = set(nums)
+        num_set = set(nums)
 
         longest = 0
 
-        for num in nums:
+        for num in num_set:
 
-            if num - 1 in nums_set:
+            if num - 1 in num_set:
                 continue
 
             current = num
             length = 1
 
-            while current + 1 in nums_set:
+            while current + 1 in num_set:
                 current += 1
                 length += 1
 
