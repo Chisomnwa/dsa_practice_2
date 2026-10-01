@@ -256,18 +256,18 @@ class Solution:
 
         Space complexity: The result storage is output space; excluding the output, the algorithm uses O(1) auxilliary space apart from the sorting implementation's internal space.
         """
-        # # Brute Force Approach (Used three nested loops)
-        # result = set()
+        # Brute Force Approach (Used three nested loops)
+        result = set()
 
-        # for i in range(len(nums)):
-        #     for j in range(i + 1, len(nums)):
-        #         for k in range(j +1, len(nums)):
+        for i in range(len(nums)):
+            for j in range(i + 1, len(nums)):
+                for k in range(j +1, len(nums)):
 
-        #             if nums[i] + nums[j] + nums[k] == 0:
-        #                 triplet = tuple(sorted([nums[i], nums[j], nums[k]]))
-        #                 result.add(triplet)
+                    if nums[i] + nums[j] + nums[k] == 0:
+                        triplet = tuple(sorted([nums[i], nums[j], nums[k]]))
+                        result.add(triplet)
         
-        # return [list(triplet) for triplet in result]
+        return [list(triplet) for triplet in result]
 
         # Optimized Approach (Using a for loop and two pointers)
         nums.sort()
