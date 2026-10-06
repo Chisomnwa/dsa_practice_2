@@ -12,13 +12,13 @@ class Solution:
 
         What is a substring? A substring must be continous in the original string
 
-        E.g s = "pwwew"
+        E.g s = "pwwkew"
 
         "wke" is a substring
 
         But "pwke" is not a substring because we are skipping characters
 
-        That's s ubsequence, not a substring.
+        That's subsequence, not a substring.
 
         Edge cases:
         1. When the string is empty ->. return 0
@@ -35,7 +35,7 @@ class Solution:
             - e.g s = "abcd"
             - return 4
 
-        2. When strings contain digits, symbols or sopaces -> include them in the substrings
+        2. When strings contain digits, symbols or spaces -> include them in the substrings
             - e.g s = "hel123❤️ol"
             - return "hel123❤️o"
 
@@ -130,7 +130,7 @@ class Solution:
 
         current_length = 2 - 0 + 1 = 3
 
-        Time complexity: 0(n^2) because for every syarting position i, we may scan the string forward using j
+        Time complexity: 0(n^2) because for every starting position i, we may scan the string forward using j
         Space complexity: O(n) because of the seen set, which could contain every character in the string if they are all unique
 
         - - -
