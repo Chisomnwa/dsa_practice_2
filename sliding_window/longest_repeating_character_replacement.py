@@ -90,7 +90,7 @@ class Solution:
         string: A A B A B B A
         index:  0 1 2 3 4 5 6
 
-        Because we are doing brute force, we'll consider substrings stareting at different positions.
+        Because we are doing brute force, we'll consider substrings starting at different positions.
 
         Starting at index 0:
 
@@ -100,7 +100,7 @@ class Solution:
 
         length = 1
         max frequency = 1
-        replacement = 1 -1 = 0
+        replacement = 1 - 1 = 0
 
         Valid
 
@@ -178,7 +178,7 @@ class Solution:
         - As we keep extending the substring, we will count how many character occurs.
         - For every substring, calculate:
 
-        replacement = substring_length - highestt_frequencey
+        replacement_needed = substring_length - highestt_frequencey
 
         if replacement needed <= k, then that substring is valid. So, update max_length.
 
@@ -223,31 +223,173 @@ class Solution:
         return max_length
 
         Space complexity: O(n^2) because we loop through the characters of the string twice to build substrings
-        Time complexity O(20) -> O(1) because the frequncey dictionary can contain at most 26 uppercae English letters        
-        """
+        Time complexity O(20) -> O(1) because the frequncey dictionary can contain at most 26 uppercae English letters
+
+        - - -
+
+        Optimized Approach (Sliding Window)
+        Pattern: This is a variable-size sliding window problem
+
+        We'll use two pointers:
+            - left -> beginning of our current window
+            - right -> end of our current window
+
+        And we'll maintain the frequency of characters inside the window
+        The window represents the substring we're currently comnsidering
+
+        Why Brute Approach is inefficient
+        The brute approach is inefficient we repatedly start all over again to build thge substrings
+        And that gives us O(n^2)
+
+        But notice that neighboring substrings share most of their characters
+
+        Sliding window let's us to reuse the curent substring instead of rebuilding everything.
+
+        How this sliding window pattern wll work:
+        Still using this formular:
+
+        replacements_needed = window_length - max_frequency
+
+        Say:
+        s = "AABABBA"
+        k = 1
+
+        Suppose our current window is:
+        A A B A
+
+        A -> 3
+        B -> 1
+
+        So
+        Window length = 4
+        max_frequency = 3
+
+        replacments_needed = 4 - 3 = 1
+
+        Since k = 1, this window is valid, and we can change the B:
+        A A B A
+          ⬇
+        A A A A
+
+        The important rule therefore:
+        window_length - max_frequency <= k
+        As long as that's true, our window is valid.
+
+        If it becomes:
+        window_length - max_frequency > k,
+        we then need too many replacements.
+
+        So, we shrink the window from the left.
+
+        Algorithm:
+        1. Set left = 0
+        2. Create an empty frequency dictionary
+        3. Set max_frequency = 0
+        4. Set max_length = 0
+        5. Move right from the beginning to the end of the string
+        6. Add s[right] to the frequency dictionary
+        7. Update max_frequency with the frequency of s[right]
+        8. Calculate the current window length: right - left + 1
+        9. If window length - max_frequency > k:
+            - Then the window requires too many frequency replacements
+            - decrease the frequency of s[left]
+            - move left forward
+        10. Continue until our window satisfies our replacement constraint
+        11. Update max_length with the current window
+        12. Return max_length
+
+        Pseudocode:
+        frequency = {}
+         
+        left = 0
+
+        max_frequency = 0
         max_length = 0
 
-        for i in range(len(s)):
+        for right in range(i, len(s)):
 
-            frequency = {}
+            char = s[right]
 
-            for j in range(i, len(s)):
+            if char in frequency:
+                frequency[char] += 1
+            else:
+                frequency[char] = 1
 
-                char = s[j]
+            current_frequency = max(frequency.values())
 
-                if char in frequency:
-                    frequency[char] += 1
-                else:
-                    frequency[char] = 1
+            max_frequency = max(max_frequency, current_frequency)
 
-                max_freq = max(frequency.values())
+            window_length = right - left + 1
 
-                current_length = j - i + 1
+            if window_length - max_frequency > k:
+                frequency[s[left]] -= 1
 
-                replacements_needed = current_length - max_freq
+                left -= 1
 
-                if replacements_needed <= k:
-                    max_length = max(max_length, current_length)
+            max_length = max(current_length, window_length)
 
         return max_length
-        
+
+        Time complexity: O(n) because
+            - right moves through the string once
+            - left also moves forward; it never moves backward
+
+        Space cpmplexity: O(26) -> O(1) because the frequency dictionary can contain at most the 26 uppercase English letters.
+
+
+        """
+        # # Brute Force Approach (Nested for Loops)
+        # max_length = 0
+
+        # for i in range(len(s)):
+
+        #     frequency = {}
+
+        #     for j in range(i, len(s)):
+
+        #         char = s[j]
+
+        #         if char in frequency:
+        #             frequency[char] += 1
+        #         else:
+        #             frequency[char] = 1
+
+        #         max_frequency = max(frequency.values())
+
+        #         current_length = j - i + 1
+
+        #         replacements_needed = current_length - max_frequency
+
+        #         if replacements_needed <= k:
+        #             max_length = max(max_length, current_length)
+
+        # return max_length
+
+        # Optimized Approach (Sliding Window)
+        frequency = {}
+         
+        left = 0
+
+        max_frequency = 0
+        max_length = 0
+
+        for right in range(len(s)):
+
+            char = s[right]
+
+            if char in frequency:
+                frequency[char] += 1
+            else:
+                frequency[char] = 1
+
+            max_frequency = max(max_frequency, frequency[char])
+
+            while (right - left + 1) - max_frequency > k:
+                frequency[s[left]] -= 1
+
+                left += 1
+
+            window_length = right - left + 1
+            max_length = max(max_length, window_length)
+
+        return max_length
